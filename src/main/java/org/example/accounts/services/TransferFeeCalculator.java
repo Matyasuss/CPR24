@@ -1,4 +1,4 @@
-package org.example.accounts;
+package org.example.accounts.services;
 
 public class TransferFeeCalculator {
     public static final double TRANSACTION_FEE_FIXED_AMOUNT = 10;

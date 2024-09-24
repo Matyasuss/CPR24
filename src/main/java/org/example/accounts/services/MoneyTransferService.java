@@ -1,5 +1,7 @@
-package org.example.accounts;
+package org.example.accounts.services;
 
+import org.example.accounts.BankAccount;
+import org.example.accounts.exceptions.NotEnoughMoneyException;
 import org.example.print.AccountDetailPrinter;
 
 public class MoneyTransferService {
@@ -33,23 +35,19 @@ public class MoneyTransferService {
         accountDetailPrinter.printDetail(bankAccount);
     }
 
-    public void TrasferMoney(BankAccount bankAccount_from,BankAccount bankAccount_to, double amount) {
-        accountDetailPrinter.printDetail(bankAccount_from);
-        accountDetailPrinter.printDetail(bankAccount_to);
-
-        double balance = bankAccount_from.getBalance();
+    public void transferMoney(BankAccount sender, BankAccount beneficiary, double amount) {
+        double balance = sender.getBalance();
         double newBalance = balance - amount;
 
         newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
 
-        bankAccount_from.setBalance(newBalance);
+        if(balance < amount) {
+            throw new NotEnoughMoneyException();
+        }
 
-        double balance2 = bankAccount_to.getBalance();
-        double newBalance2 = balance + amount;
-
-        bankAccount_to.setBalance(newBalance2);
-
-        accountDetailPrinter.printDetail(bankAccount_from);
-        accountDetailPrinter.printDetail(bankAccount_to);
+        sender.setBalance(newBalance);
+        beneficiary.setBalance(beneficiary.getBalance() + amount);
+        accountDetailPrinter.printDetail(sender);
+        accountDetailPrinter.printDetail(beneficiary);
     }
 }
