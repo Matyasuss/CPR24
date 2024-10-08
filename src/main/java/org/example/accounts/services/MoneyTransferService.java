@@ -1,17 +1,21 @@
 package org.example.accounts.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.example.accounts.BankAccount;
 import org.example.accounts.exceptions.NotEnoughMoneyException;
 import org.example.print.AccountDetailPrinter;
 
+@Singleton
 public class MoneyTransferService {
 
     public TransferFeeCalculator transferFeeCalculator;
     public AccountDetailPrinter accountDetailPrinter;
 
-    public MoneyTransferService() {
-        this.transferFeeCalculator = new TransferFeeCalculator();
-        this.accountDetailPrinter = new AccountDetailPrinter();
+    @Inject
+    public MoneyTransferService(TransferFeeCalculator transferFeeCalculator, AccountDetailPrinter accountDetailPrinter) {
+        this.transferFeeCalculator = transferFeeCalculator;
+        this.accountDetailPrinter = accountDetailPrinter;
     }
 
 

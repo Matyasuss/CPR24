@@ -1,8 +1,13 @@
 package org.example.accounts.services;
 
+import com.google.inject.Singleton;
+import org.example.accounts.services.AccountNumberGenerator;
+
 import java.util.Random;
 
-public class BankAccountNumberGenerator {
+@Singleton
+public class BankAccountNumberGenerator implements AccountNumberGenerator {
+    @Override
     public String generateAccountNumber() {
         Random random = new Random();
 
