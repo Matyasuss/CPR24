@@ -15,18 +15,29 @@ public class BankAccountFactory {
     public BankCardFactory bankCardFactory;
 
     public BankAccount createBankAccount(double balance, Owner owner, String accountNumber) {
-        return new BankAccount(balance, owner, accountNumber, BankCardFactory.createBankCard());
+        return new BankAccount(balance, owner, accountNumber);
     }
 
     public BankAccount createBankAccount(double balance, Owner owner) {
-        return new BankAccount(balance, owner, bankAccountNumberGenerator.generateAccountNumber(), BankCardFactory.createBankCard());
+        BankAccount account = new BankAccount(balance, owner, bankAccountNumberGenerator.generateAccountNumber());
+        addCard(account);
+        return account;
     }
 
     public BankAccount createStudentBankAccount(double balance, Owner owner, String accountNumber) {
-        return new BankAccount(balance, owner, accountNumber, BankCardFactory.createBankCard());
+        BankAccount account = new BankAccount(balance, owner, accountNumber);
+        addCard(account);
+        return account;
     }
 
     public BankAccount createStudentBankAccount(double balance, Owner owner) {
-        return new BankAccount(balance, owner, bankAccountNumberGenerator.generateAccountNumber(), BankCardFactory.createBankCard());
+        BankAccount account = new BankAccount(balance, owner, bankAccountNumberGenerator.generateAccountNumber());
+        addCard(account);
+        return account;
+    }
+
+    public void addCard (BankAccount account) {
+        BankCard card = bankCardFactory.createBankCard(account);
+        account.cards.put(card.getCardNumber(), card);
     }
 }

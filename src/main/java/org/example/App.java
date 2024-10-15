@@ -4,13 +4,9 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.example.accounts.StudentBankAccount;
-import org.example.accounts.services.AccountNumberGenerator;
+import org.example.accounts.services.*;
 import org.example.accounts.BankAccount;
 import org.example.accounts.factories.BankAccountFactory;
-import org.example.accounts.services.BankAccountNumberGenerator;
-import org.example.accounts.services.MoneyTransferService;
-import org.example.accounts.services.SkAccountNumberGenerator;
-import org.example.accounts.services.TransferFeeCalculator;
 import org.example.people.Owner;
 import org.example.people.OwnerFactory;
 import org.example.people.OwnerJsonSerializationService;
@@ -36,8 +32,8 @@ public class App {
 
     void runBank() {
 
-        Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "1234567890");
-        BankAccount account1 = this.bankAccountFactory.createBankAccount(1000, owner1);
+        Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "558647760");
+        BankAccount account1 = this.bankAccountFactory.createBankAccount(3000, owner1);
         BankAccount account2 = this.bankAccountFactory.createStudentBankAccount(1000, owner1);
 
         System.out.println(this.ownerJsonSerializationService.serializeOwner(owner1));

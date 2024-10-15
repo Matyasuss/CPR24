@@ -14,7 +14,7 @@ public class BankCardFactory {
     @Inject
     public CardNumberGenerator cardNumberGenerator;
 
-    public static BankCard createBankCard() {
-        return new BankCard(CardNumberGenerator.generateCardNumber(), BankCardPinGenerator.generatePinCode());
+    public static BankCard createBankCard(BankAccount bankAccount) {
+        return new BankCard(CardNumberGenerator.generateCardNumber(), BankCardPinGenerator.generatePinCode(), bankAccount);
     }
 }

@@ -9,7 +9,7 @@ public class SavingsAccount extends BankAccount implements Interesting {
     private double interestRate;
 
     public SavingsAccount(double balance, Owner owner, String accountNumber, double interestRate) {
-        super(balance, owner, accountNumber, BankCardFactory.createBankCard());
+        super(balance, owner, accountNumber);
         this.interestRate = interestRate;
     }
 
