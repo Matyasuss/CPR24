@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.example.accounts.StudentBankAccount;
+import org.example.accounts.cards.GlobalCardStorage;
 import org.example.accounts.services.*;
 import org.example.accounts.BankAccount;
 import org.example.accounts.factories.BankAccountFactory;
@@ -31,6 +32,8 @@ public class App {
     private MoneyTransferService moneyTransferService;
 
     void runBank() {
+
+        GlobalCardStorage mainCardStorage = new GlobalCardStorage();
 
         Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "558647760");
         BankAccount account1 = this.bankAccountFactory.createBankAccount(3000, owner1);

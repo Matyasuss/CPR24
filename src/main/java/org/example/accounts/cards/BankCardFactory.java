@@ -15,6 +15,8 @@ public class BankCardFactory {
     public CardNumberGenerator cardNumberGenerator;
 
     public static BankCard createBankCard(BankAccount bankAccount) {
-        return new BankCard(CardNumberGenerator.generateCardNumber(), BankCardPinGenerator.generatePinCode(), bankAccount);
+        BankCard card = new BankCard(CardNumberGenerator.generateCardNumber(), BankCardPinGenerator.generatePinCode(), bankAccount);
+        return card;
+        mainCardStorage.put(card);
     }
 }
