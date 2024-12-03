@@ -3,9 +3,9 @@ package org.example.people;
 import com.google.gson.annotations.SerializedName;
 
 public class Owner {
-    @SerializedName("Firstname")
+    @SerializedName("first_name")
     public String firstname;
-    @SerializedName("Lastname")
+    @SerializedName("last_name")
     public String lastname;
     public String id;
 

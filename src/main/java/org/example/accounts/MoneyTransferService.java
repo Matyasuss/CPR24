@@ -1,23 +1,16 @@
-package org.example.accounts.services;
+package org.example.accounts;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.example.accounts.BankAccount;
-import org.example.accounts.exceptions.NotEnoughMoneyException;
 import org.example.print.AccountDetailPrinter;
 
 @Singleton
 public class MoneyTransferService {
-
+    @Inject
     public TransferFeeCalculator transferFeeCalculator;
-    public AccountDetailPrinter accountDetailPrinter;
 
     @Inject
-    public MoneyTransferService(TransferFeeCalculator transferFeeCalculator, AccountDetailPrinter accountDetailPrinter) {
-        this.transferFeeCalculator = transferFeeCalculator;
-        this.accountDetailPrinter = accountDetailPrinter;
-    }
-
+    public AccountDetailPrinter accountDetailPrinter;
 
     public void depositMoney(BankAccount bankAccount, double amount) {
         double balance = bankAccount.getBalance();
@@ -26,7 +19,6 @@ public class MoneyTransferService {
         newBalance -= this.transferFeeCalculator.calculateTransferFee(amount);
 
         bankAccount.setBalance(newBalance);
-        accountDetailPrinter.printDetail(bankAccount);
     }
 
     public void withdrawMoney(BankAccount bankAccount, double amount) {
@@ -36,7 +28,6 @@ public class MoneyTransferService {
         newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
 
         bankAccount.setBalance(newBalance);
-        accountDetailPrinter.printDetail(bankAccount);
     }
 
     public void transferMoney(BankAccount sender, BankAccount beneficiary, double amount) {
@@ -45,13 +36,29 @@ public class MoneyTransferService {
 
         newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
 
-        if(balance < amount) {
+        if (balance < amount) {
             throw new NotEnoughMoneyException();
         }
 
         sender.setBalance(newBalance);
         beneficiary.setBalance(beneficiary.getBalance() + amount);
-        accountDetailPrinter.printDetail(sender);
-        accountDetailPrinter.printDetail(beneficiary);
+    }
+
+    public void addMoney(BankAccount bankAccount, double amount) {
+        double balance = bankAccount.getBalance();
+        double newBalance = balance + amount;
+
+        bankAccount.setBalance(newBalance);
+    }
+
+    public void deductMoney(BankAccount bankAccount, double amount) {
+        double balance = bankAccount.getBalance();
+        double newBalance = balance - amount;
+
+        bankAccount.setBalance(newBalance);
+    }
+
+    public boolean hasSufficientFunds(BankAccount bankAccount, double amount) {
+        return bankAccount.getBalance() >= amount;
     }
 }

@@ -1,17 +1,16 @@
+
 package org.example.people;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import java.util.HashMap;
+
 @Singleton
 public class OwnerJsonSerializationService {
-    private Gson gson;
-
     @Inject
-    public OwnerJsonSerializationService(Gson gson) {
-        this.gson = gson;
-    }
+    public Gson gson;
 
     public String serializeOwner(Owner owner) {
         return gson.toJson(owner);

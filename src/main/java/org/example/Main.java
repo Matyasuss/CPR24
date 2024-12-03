@@ -10,9 +10,10 @@ public class Main {
             App app = injector.getInstance(App.class);
             app.run();
         } catch (ArithmeticException e) {
-            System.out.println("You cant math :(" + e.getMessage());
+            System.out.println("ArithmeticException: " + e.getMessage());
         } catch (Throwable e) {
-            System.out.println("Program ran into an error: " + e.getMessage());
+            System.out.println("Error: ");
+            e.printStackTrace();
         }
     }
 }

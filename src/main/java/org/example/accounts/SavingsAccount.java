@@ -1,12 +1,12 @@
 package org.example.accounts;
 
-import org.example.accounts.Interesting;
-import org.example.accounts.cards.BankCard;
-import org.example.accounts.cards.BankCardFactory;
 import org.example.people.Owner;
 
-public class SavingsAccount extends BankAccount implements Interesting {
+import java.util.Date;
+
+public class SavingsAccount extends BankAccount {
     private double interestRate;
+    private long lastInterestedAt;
 
     public SavingsAccount(double balance, Owner owner, String accountNumber, double interestRate) {
         super(balance, owner, accountNumber);
@@ -19,6 +19,14 @@ public class SavingsAccount extends BankAccount implements Interesting {
 
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
+    }
+
+    public long getLastInterestedAt() {
+        return lastInterestedAt;
+    }
+
+    public void setLastInterestedAt(long lastInterestedAt) {
+        this.lastInterestedAt = lastInterestedAt;
     }
 
 }

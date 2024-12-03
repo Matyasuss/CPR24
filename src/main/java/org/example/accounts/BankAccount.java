@@ -1,10 +1,10 @@
 package org.example.accounts;
 
-import org.example.accounts.cards.BankCard;
+import org.example.cards.BankCard;
 import org.example.people.Owner;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankAccount {
     private double balance;
@@ -13,7 +13,7 @@ public class BankAccount {
 
     private String accountNumber;
 
-    public Map<String, BankCard> cards = new HashMap<String, BankCard>();
+    private List<BankCard> bankCards = new ArrayList<BankCard>();
 
     public BankAccount(double balance, Owner owner, String accountNumber) {
         this.balance = balance;
@@ -21,8 +21,17 @@ public class BankAccount {
         this.accountNumber = accountNumber;
     }
 
+    public void associateBankCard(BankCard bankCard) {
+        bankCard.setBankAccount(this);
+        this.bankCards.add(bankCard);
+    }
+
+    public List<BankCard> getBankCards() {
+        return this.bankCards;
+    }
+
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public Owner getOwner() {

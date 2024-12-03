@@ -2,27 +2,22 @@ package org.example.people;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.example.accounts.services.AccountNumberGenerator;
-import org.example.accounts.services.BankAccountNumberGenerator;
+import org.example.accounts.AccountNumberGenerator;
 
 @Singleton
 public class OwnerFactory {
-    private PersonIdValidator personIdValidator;
-
-    private AccountNumberGenerator accountNumberGenerator;
+    @Inject
+    public PersonIdValidator personIdValidator;
 
     @Inject
-    public OwnerFactory(PersonIdValidator personIdValidator, AccountNumberGenerator accountNumberGenerator) {
-        this.personIdValidator = personIdValidator;
-        this.accountNumberGenerator = accountNumberGenerator;
-    }
+    public AccountNumberGenerator accountNumberGenerator;
+
+    public OwnerFactory() {}
 
     public Owner createOwner(String name, String surname, String id) {
         if(!this.personIdValidator.isPersonIdValid(id)) {
-            throw new IllegalArgumentException("Invalid Id \uD83D\uDE2D");
+            throw new IllegalArgumentException("Invalid Id");
         }
-
-        System.out.println(this.accountNumberGenerator.generateAccountNumber());
 
         return new Owner(name, surname, id);
     }

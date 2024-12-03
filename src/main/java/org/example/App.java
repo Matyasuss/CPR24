@@ -1,18 +1,14 @@
 package org.example;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import org.example.accounts.StudentBankAccount;
-import org.example.accounts.cards.GlobalCardStorage;
-import org.example.accounts.services.*;
-import org.example.accounts.BankAccount;
-import org.example.accounts.factories.BankAccountFactory;
+import org.example.accounts.BankAccountFacade;
+import org.example.accounts.interest.InterestingService;
 import org.example.people.Owner;
 import org.example.people.OwnerFactory;
 import org.example.people.OwnerJsonSerializationService;
-import org.example.people.PersonIdValidator;
 import org.example.print.AccountDetailPrinter;
+
+import java.util.Date;
 
 public class App {
     public void run() {
@@ -20,29 +16,26 @@ public class App {
     }
 
     @Inject
-    private OwnerJsonSerializationService ownerJsonSerializationService;
+    OwnerFactory ownerFactory;
 
     @Inject
-    private OwnerFactory ownerFactory;
+    BankAccountFacade bankAccountFacade;
 
     @Inject
-    private BankAccountFactory bankAccountFactory;
+    AccountDetailPrinter accountDetailPrinter;
 
     @Inject
-    private MoneyTransferService moneyTransferService;
+    OwnerJsonSerializationService ownerJsonSerializationService;
+
+    @Inject
+    AtmService atmService;
+
+    @Inject
+    InterestingService interestingService;
 
     void runBank() {
+        Owner owner = ownerFactory.createOwner("Pepa", "Doe", "11");
 
-        GlobalCardStorage mainCardStorage = new GlobalCardStorage();
 
-        Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "558647760");
-        BankAccount account1 = this.bankAccountFactory.createBankAccount(3000, owner1);
-        BankAccount account2 = this.bankAccountFactory.createStudentBankAccount(1000, owner1);
-
-        System.out.println(this.ownerJsonSerializationService.serializeOwner(owner1));
-        if (account2 instanceof StudentBankAccount) {
-            String expire = ((StudentBankAccount) account2).getStudentStudiesConfirmationExpiresAt();
-            System.out.println(expire);
-        }
     }
 }

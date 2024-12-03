@@ -1,4 +1,4 @@
-package org.example.accounts.exceptions;
+package org.example.accounts;
 
 public class NotEnoughMoneyException extends RuntimeException {
     public NotEnoughMoneyException() {
